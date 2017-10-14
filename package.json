@@ -1,0 +1,24 @@
+{
+  "name": "cleanifyjs-webpack-plugin",
+  "version": "0.1.0",
+  "description": "webpack plugin for cleaning js codes",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumartoyo/cleanifyjs-webpack-plugin.git"
+  },
+  "author": "Dimas Sumartoyo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sumartoyo/cleanifyjs-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/sumartoyo/cleanifyjs-webpack-plugin#readme",
+  "devDependencies": {
+    "acorn": "^5.1.2",
+    "webpack": "^3.7.1",
+    "webpack-sources": "^1.0.1"
+  }
+}
