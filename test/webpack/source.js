@@ -1,6 +1,7 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/  // The module cache
 /******/  var installedModules = {};
+/******/  var jimmy = /* neutron */ 'neutron';
 /******/
 /******/  // The require function
 /******/  function __webpack_require__(moduleId) {
@@ -61,5 +62,19 @@
 /******/
 /******/  // Load entry module and return exports
 /******/  return __webpack_require__(__webpack_require__.s = 17);
+
+var asd;
+var asd; asd
+var asd; // asd
+var asd; /* asd */
+var asd; /asd/
+
 /******/ })
 /************************************************************************/
+
+function something() {
+  'use strict';
+  (function () {
+    console.log('self invoking function')
+  })()
+}

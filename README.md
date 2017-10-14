@@ -1,4 +1,4 @@
-This webpack plugin removes comments and unnecessary white spaces from JS codes. It does not add or change anything else. This plugin does not generate source map.
+This webpack plugin removes comments and unnecessary white spaces and semicolons from JS codes. It does not add or change anything else. This plugin does not generate source map.
 
 ## Usage
 

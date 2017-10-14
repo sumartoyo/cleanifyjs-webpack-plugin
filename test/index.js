@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test'
 
 const fs = require('fs')
 const path = require('path')
-const cleanify = require('..').cleanify
+const cleanify = require('../cleanify')
 
 const cases = [
   'webpack'
