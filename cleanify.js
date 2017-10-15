@@ -29,20 +29,21 @@ const cleanify = (source) => {
   if (comments.length === 0) {
     result = source
   } else {
-    let char = null
     let idx = 0
-    while (idx < source.length) {
-      char = source[idx]
-      if (idx === comments[0]) {
-        comments.shift()
-        while (idx < comments[0]) {
-          result += ' '
-          idx++
-        }
-        comments.shift()
-        continue
+    while (idx < source.length && comments.length > 0) {
+      while (idx < comments[0]) {
+        result += source[idx]
+        idx++
       }
-      result += char
+      comments.shift()
+      while (idx < comments[0]) {
+        result += ' '
+        idx++
+      }
+      comments.shift()
+    }
+    while (idx < source.length) {
+      result += source[idx]
       idx++
     }
   }
@@ -71,8 +72,12 @@ const cleanify = (source) => {
 
     // skip white spaces
     if (skipWhiteSpace > 0) {
-      const includeNewLine = skipWhiteSpace === 2 && char.charCodeAt(0) < 33
-      const spacesOnly = skipWhiteSpace === 1 && char.charCodeAt(0) < 33 && char !== '\r' && char !== '\n'
+      const includeNewLine = skipWhiteSpace === 2
+        && char.charCodeAt(0) < 33
+      const spacesOnly = skipWhiteSpace === 1
+        && char.charCodeAt(0) < 33
+        && char !== '\r'
+        && char !== '\n'
       if (includeNewLine || spacesOnly) {
         idx++
         continue
@@ -95,7 +100,11 @@ const cleanify = (source) => {
       case '\t':
         idx++
         char = source[idx]
-        while (idx < source.length && char.charCodeAt(0) < 33 && char !== '\r' && char !== '\n') {
+        while (idx < source.length
+          && char.charCodeAt(0) < 33
+          && char !== '\r'
+          && char !== '\n'
+        ) {
           idx++
           char = source[idx]
         }
@@ -111,20 +120,12 @@ const cleanify = (source) => {
       case ';':
         idx++
         char = source[idx]
-        while (idx < source.length) {
-          if (char === '/') {
-            if (idx !== comments[0]) {
-              break
-            } else {
-              comments.shift()
-              idx = comments[0]
-              comments.shift()
-            }
-          } else if (char === '\r' || char === '\n') {
-            break
-          } else if (char.charCodeAt(0) >= 33 && char !== ';') {
-            break
-          }
+        while (idx < source.length
+          && char.charCodeAt(0) < 33
+          && char !== '\r'
+          && char !== '\n'
+          && char !== ';'
+        ) {
           idx++
           char = source[idx]
         }
