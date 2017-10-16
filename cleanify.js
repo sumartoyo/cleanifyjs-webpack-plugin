@@ -110,44 +110,29 @@ const cleanify = (source) => {
         }
         if (idx < source.length) {
           if (!isSymbol(char)) {
-            result += ' ' + char
-            idx++
+            result += ' '
           }
         }
         continue
 
-      // if see semicolon, skip if next is new line or right brace
+      // if see semicolon, skip if followed by brace
       case ';':
         idx++
         char = source[idx]
-        while (idx < source.length
-          && char.charCodeAt(0) < 33
-          && char !== '\r'
-          && char !== '\n'
-          && char !== ';'
-        ) {
+        let sawNewLine = false
+        while (idx < source.length && char.charCodeAt(0) < 33) {
+          if (char === '\r' || char === '\n') {
+            sawNewLine = true
+          }
           idx++
           char = source[idx]
         }
         if (idx < source.length) {
-          if (char !== '\r' && char !== '\n' && char !== '}') {
-            result += ';' + char
-            idx++
-          } else {
-            if (char === '\r' || char === '\n') {
-              // wait, is it followed with self invoking function?
-              localIdx = idx + 1
-              char = source[localIdx]
-              while (localIdx < source.length && char.charCodeAt(0) < 33) {
-                localIdx++
-                char = source[localIdx]
-              }
-              if (char === '(') {
-                result += ';\n' + char
-                idx = localIdx + 1
-                skipWhiteSpace = 1
-              }
-            }
+          if (char !== '}') {
+            result += ';'
+          }
+          if (sawNewLine) {
+            result += '\n'
           }
         }
         continue
@@ -179,9 +164,6 @@ const isSymbol = (char) => {
     case ']':
     case '}':
     case '!':
-    case '@':
-    case '#':
-    case '$':
     case '%':
     case '^':
     case '&':

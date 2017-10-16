@@ -1,6 +1,6 @@
 (function(modules){
-var installedModules={}
-var jimmy='neutron'
+var installedModules={};
+var jimmy='neutron';
 function __webpack_require__(moduleId){
 if(installedModules[moduleId]){
 return installedModules[moduleId].exports
@@ -9,13 +9,13 @@ var module=installedModules[moduleId]={
 i:moduleId,
 l:false,
 exports:{}
-}
-modules[moduleId].call(module.exports,module,module.exports,__webpack_require__)
-module.l=true
+};
+modules[moduleId].call(module.exports,module,module.exports,__webpack_require__);
+module.l=true;
 return module.exports
 }
-__webpack_require__.m=modules
-__webpack_require__.c=installedModules
+__webpack_require__.m=modules;
+__webpack_require__.c=installedModules;
 __webpack_require__.d=function(exports,name,getter){
 if(!__webpack_require__.o(exports,name)){
 Object.defineProperty(exports,name,{
@@ -24,21 +24,21 @@ enumerable:true,
 get:getter
 })
 }
-}
+};
 __webpack_require__.n=function(module){
 var getter=module&&module.__esModule?
 function getDefault(){return module['default']}:
-function getModuleExports(){return module}
-__webpack_require__.d(getter,'a',getter)
+function getModuleExports(){return module};
+__webpack_require__.d(getter,'a',getter);
 return getter
-}
-__webpack_require__.o=function(object,property){return Object.prototype.hasOwnProperty.call(object,property)}
-__webpack_require__.p="/"
-return __webpack_require__(__webpack_require__.s=17)
-var asd
+};
+__webpack_require__.o=function(object,property){return Object.prototype.hasOwnProperty.call(object,property)};
+__webpack_require__.p="/";
+return __webpack_require__(__webpack_require__.s=17);
+var asd;
 var asd;asd
-var asd
-var asd
+var asd;
+var asd;
 var asd;/asd/
 })
 function something(){
