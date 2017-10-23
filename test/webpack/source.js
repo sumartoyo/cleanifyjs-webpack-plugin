@@ -2,6 +2,9 @@
 /******/  // The module cache
 /******/  var installedModules = {};
 /******/  var jimmy = /* neutron */ 'neutron';
+var nice = 1 + ++jimmy;
+var good = jimmy++ + 1;
+for(;;) break
 /******/
 /******/  // The require function
 /******/  function __webpack_require__(moduleId) {

@@ -114,33 +114,52 @@ const cleanify = (source) => {
           }
         }
         continue
-
-      // if see semicolon, skip if followed by brace
-      case ';':
-        idx++
-        char = source[idx]
-        let sawNewLine = false
-        while (idx < source.length && char.charCodeAt(0) < 33) {
-          if (char === '\r' || char === '\n') {
-            sawNewLine = true
-          }
-          idx++
-          char = source[idx]
-        }
-        if (idx < source.length) {
-          if (char !== '}') {
-            result += ';'
-          }
-          if (sawNewLine) {
-            result += '\n'
-          }
-        }
-        continue
     }
 
     // when see a symbol, skip white spaces next
     if (isSymbol(char)) {
       skipWhiteSpace = 1
+
+      let localIdx
+      let localChar
+
+      switch (char) {
+        case '+':
+        case '-':
+          // be careful with ++ and -- because y+ ++x and x-- -y is valid
+          localIdx = idx + 1
+          localChar = source[localIdx]
+          if (localChar === ' ' || localChar === '\t') {
+            while (localChar === ' ' || localChar === '\t') {
+              localIdx++
+              localChar = source[localIdx]
+            }
+            if (localChar === char) {
+              result += char + ' '
+              char = ''
+            }
+          }
+          break
+
+        case ';':
+          // not ;} and not ;\n} and not ;\n[name]
+          localIdx = idx + 1
+          localChar = source[localIdx]
+          let sawNewLine = false
+          while (localIdx < source.length && localChar.charCodeAt(0) < 33) {
+            if (localChar === '\r' || localChar === '\n') {
+              sawNewLine = true
+            }
+            localIdx++
+            localChar = source[localIdx]
+          }
+          if (localChar === '}') {
+            char = ''
+          } else if (sawNewLine && isName(localChar)) {
+            char = ''
+          }
+          break
+      }
     }
 
     // normal case
@@ -186,6 +205,14 @@ const isSymbol = (char) => {
       return true
   }
   return false
+}
+
+const isName = (char) => {
+  const charCode = char.charCodeAt(0)
+  const isNumber = charCode >= 48 && charCode <= 57
+  const isUpper = charCode >= 65 && charCode <= 90
+  const isLower = charCode >= 97 && charCode <= 122
+  return char === '_' || char === '$' || isNumber || isUpper || isLower
 }
 
 module.exports = cleanify
